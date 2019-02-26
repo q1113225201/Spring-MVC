@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-${requestScope.message}
+auto${requestScope.message}
 </body>
 </html>

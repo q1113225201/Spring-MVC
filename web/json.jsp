@@ -9,8 +9,8 @@
 <html>
 <head>
     <title>Title</title>
-    <script src="js/jquery-3.3.1.js"/>
-    <script>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
         $(document).ready(function(){
             console.log("ready")
             $("#btn_post").click(function () {

@@ -40,4 +40,16 @@
             <value>UTF-8</value>
         </property>
     </bean>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--拦截所有请求-->
+            <mvc:mapping path="/*"/>
+            <bean class="com.sjl.springmvc.interceptor.AuthorizationInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <!--拦截所有请求-->
+            <mvc:mapping path="/*"/>
+            <bean class="com.sjl.springmvc.interceptor.LogInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

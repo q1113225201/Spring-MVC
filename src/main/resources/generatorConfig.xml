@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 文件头 -->
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 根节点 -->
+<generatorConfiguration>
+    <!-- 属性，指定classpath下的属性文件 -->
+    <properties resource="application.properties"/>
+    <!-- 加载其他用途的jar -->
+    <classPathEntry location="C:\Users\SJL\.m2\repository\mysql\mysql-connector-java\8.0.13\mysql-connector-java-8.0.13.jar"/>
+    <!-- 用于指定生成一组对象的环境 -->
+    <context id="context" defaultModelType="flat" targetRuntime="MyBatis3Simple">
+        <!-- 数据库配置 -->
+        <jdbcConnection driverClass="${db.driver}" connectionURL="${db.url}" userId="${db.username}" password="${db.password}"/>
+        <!-- 控制生成的实体类 -->
+        <javaModelGenerator targetPackage="com.sjl.springmvc.model" targetProject="src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件 -->
+        <sqlMapGenerator targetPackage="sqlmap.auto" targetProject="src/main/resources">
+        </sqlMapGenerator>
+        <!-- 生成DAO -->
+        <javaClientGenerator targetPackage="com.sjl.springmvc.dao" type="XMLMAPPER" targetProject="src/main/java">
+        </javaClientGenerator>
+        <!-- 要生成的表 -->
+        <table tableName="db_%"></table>
+    </context>
+</generatorConfiguration>

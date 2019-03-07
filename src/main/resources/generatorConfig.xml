@@ -6,9 +6,9 @@
     <!-- 属性，指定classpath下的属性文件 -->
     <properties resource="application.properties"/>
     <!-- 加载其他用途的jar -->
-    <classPathEntry location="C:\Users\SJL\.m2\repository\mysql\mysql-connector-java\8.0.13\mysql-connector-java-8.0.13.jar"/>
+    <classPathEntry location="C:\Users\10886\.m2\repository\mysql\mysql-connector-java\8.0.13\mysql-connector-java-8.0.13.jar"/>
     <!-- 用于指定生成一组对象的环境 -->
-    <context id="context" defaultModelType="flat" targetRuntime="MyBatis3Simple">
+    <context id="context" defaultModelType="flat" targetRuntime="MyBatis3">
         <!-- 数据库配置 -->
         <jdbcConnection driverClass="${db.driver}" connectionURL="${db.url}" userId="${db.username}" password="${db.password}"/>
         <!-- 控制生成的实体类 -->
@@ -16,12 +16,12 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- 生成映射文件 -->
-        <sqlMapGenerator targetPackage="sqlmap.auto" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="sqlmap" targetProject="src/main/resources">
         </sqlMapGenerator>
         <!-- 生成DAO -->
         <javaClientGenerator targetPackage="com.sjl.springmvc.dao" type="XMLMAPPER" targetProject="src/main/java">
         </javaClientGenerator>
         <!-- 要生成的表 -->
-        <table tableName="db_%"></table>
+        <table tableName="tb_%"></table>
     </context>
 </generatorConfiguration>

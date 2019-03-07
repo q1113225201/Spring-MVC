@@ -1,73 +1,51 @@
 package com.sjl.springmvc.controller;
 
-import com.sjl.springmvc.dao.DbUserMapper;
-import com.sjl.springmvc.domain.UserBean;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.sjl.springmvc.domain.ResultDTO;
+import com.sjl.springmvc.model.TbUser;
+import com.sjl.springmvc.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
-/**
- * 控制器
- */
 @Controller
 public class UserController {
-    private static final Log logger = LogFactory.getLog(UserController.class);
-    DbUserMapper dbUserMapper;
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String getUsers(HttpServletRequest httpServletRequest, Model model) {
-        logger.info("handleRequest:" + httpServletRequest.getRequestURI());
-        //添加模型数据
-        model.addAttribute("name", "tom");
-        model.addAttribute("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
-        return "user";
+    @Autowired
+    private UserService userService;
+
+    @ResponseBody
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public ResultDTO<List<TbUser>> getUsers() {
+        List<TbUser> users = userService.getUsers();
+        return new ResultDTO<List<TbUser>>(users.size() > 0 ? 1 : 0, users, users.size() > 0 ? "获取成功" : "数据为空");
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public String getUser(@PathVariable String id, Model model) {
-        model.addAttribute("id", id);
-        //添加模型数据
-        return "user";
-    }
-
-    /**
-     * 先于所有请求
-     *
-     * @param username
-     * @param password
-     * @param model
-     */
-    @ModelAttribute
-    public void userModel(String username, String password, Model model) {
-        logger.info("userModel:" + username + "," + password);
-        UserBean userBean = new UserBean();
-        userBean.setUsername(username);
-        userBean.setPassword(password);
-        model.addAttribute("user", userBean);
-        model.addAttribute("username", username);
-        model.addAttribute("password", password);
-    }
-
-    @RequestMapping(value = "/user/login", method = {RequestMethod.POST, RequestMethod.GET})
-    public String login(Model model) {
-        UserBean userBean = (UserBean) model.asMap().get("user");
-        userBean.setPassword("******");
-        if ("1".equalsIgnoreCase(userBean.getUsername())) {
-            //添加模型数据
-            return "user";
-        } else {
-            //添加模型数据
-            return "index";
+    @ResponseBody
+    @PostMapping(value = "/user")
+    public ResultDTO<Integer> addUser(@RequestBody TbUser tbUser) {
+        ResultDTO<Integer> resultDTO = new ResultDTO<Integer>();
+        if (tbUser == null) {
+            resultDTO.setCode(0);
+            resultDTO.setMsg("添加数据为空");
+            return resultDTO;
         }
+        if (StringUtils.isEmpty(tbUser.getUsername())) {
+            resultDTO.setCode(0);
+            resultDTO.setMsg("昵称不能为空");
+            return resultDTO;
+        }
+        if (StringUtils.isEmpty(tbUser.getPassword())) {
+            resultDTO.setCode(0);
+            resultDTO.setMsg("密码不能为空");
+            return resultDTO;
+        }
+        int result = userService.addUser(tbUser);
+        resultDTO.setCode(result > 0 ? 1 : 0);
+        resultDTO.setMsg(result > 0 ? "添加成功" : "添加失败");
+        resultDTO.setData(result);
+        return resultDTO;
     }
-
 }

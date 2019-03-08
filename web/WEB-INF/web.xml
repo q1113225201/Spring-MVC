@@ -6,11 +6,8 @@
     <context-param>
         <!--contextConfigLocation参数名称，该参数对应的配置文件路径-->
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext.xml</param-value>
+        <param-value>classpath:conf/spring-*.xml</param-value>
     </context-param>
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
     <!--
         使用Spring提供过滤器CharacterEncodingFilter处理字符编码。
 
@@ -35,7 +32,7 @@
     </filter-mapping>
     <servlet>
         <!--servlet的名称-->
-        <servlet-name>dispatcher</servlet-name>
+        <servlet-name>SpringMVC</servlet-name>
         <!--servlet对应的java类-->
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
@@ -43,7 +40,7 @@
     <!--Servlet映射声明-->
     <servlet-mapping>
         <!--请求对应的Servlet的名称-->
-        <servlet-name>dispatcher</servlet-name>
+        <servlet-name>SpringMVC</servlet-name>
         <!--监听当前域的请求-->
         <url-pattern>/</url-pattern>
     </servlet-mapping>

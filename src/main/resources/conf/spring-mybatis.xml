@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <!--数据库配置-->
-    <context:property-placeholder location="application.properties"/>
+    <context:property-placeholder location="classpath:application.properties"/>
     <!--配置数据源-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
           p:driverClassName="${db.driver}"
@@ -21,8 +20,8 @@
     -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
           p:dataSource-ref="dataSource"
-          p:configLocation="mybatis_config.xml"
-          p:mapperLocations="classpath:sqlmap/*.xml">
+          p:configLocation="classpath:conf/mybatis_config.xml"
+          p:mapperLocations="classpath:sqlmap/TbUserMapper.xml">
     </bean>
     <!--
         spring与mybatis整合配置，动态实现 mapper 接口，注入到 spring 容器中

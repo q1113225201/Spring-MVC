@@ -2,8 +2,9 @@ package com.sjl.springmvc.dao;
 
 import com.sjl.springmvc.model.TbUser;
 import com.sjl.springmvc.model.TbUserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TbUserMapper {
     /**

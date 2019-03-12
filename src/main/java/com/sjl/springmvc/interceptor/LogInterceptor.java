@@ -36,7 +36,7 @@ public class LogInterceptor implements HandlerInterceptor {
             stringBuilder.append(key).append("=").append(httpServletRequest.getParameter(key));
         }
         log.error(stringBuilder.toString());
-        return false;
+        return true;
     }
 
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {

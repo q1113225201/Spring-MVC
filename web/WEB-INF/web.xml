@@ -32,16 +32,21 @@
     </filter-mapping>
     <servlet>
         <!--servlet的名称-->
-        <servlet-name>SpringMVC</servlet-name>
+        <servlet-name>spring</servlet-name>
         <!--servlet对应的java类-->
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <!--contextConfigLocation参数名称，该参数对应的配置文件路径-->
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:conf/spring-*.xml</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <!--Servlet映射声明-->
     <servlet-mapping>
         <!--请求对应的Servlet的名称-->
-        <servlet-name>SpringMVC</servlet-name>
+        <servlet-name>spring</servlet-name>
         <!--监听当前域的请求-->
-        <url-pattern>/</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 </web-app>
